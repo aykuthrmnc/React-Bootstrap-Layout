@@ -1,4 +1,4 @@
-import { Container, Dropdown, Nav, NavDropdown, Navbar, Offcanvas } from "react-bootstrap";
+import { Container, Dropdown, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { setThemeHandle, userLogoutHandle } from "~/utils";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
