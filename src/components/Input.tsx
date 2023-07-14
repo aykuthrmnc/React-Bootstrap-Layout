@@ -1,13 +1,18 @@
-import { InputHTMLAttributes } from "react";
+import { HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
 import { Form } from "react-bootstrap";
 import { Controller, Control as RHFControl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import BaseReactSelect from "react-select";
-import BaseReactSelectAsync from "react-select/async";
-import BaseReactSelectCreatable from "react-select/creatable";
-import BaseReactSelectAsyncCreatable from "react-select/async-creatable";
+import BaseReactSelect, { Props as ReactSelectProps } from "react-select";
+import BaseReactSelectAsync, { AsyncProps as ReactSelectAsyncProps } from "react-select/async";
+import BaseReactSelectCreatable, { CreatableProps as ReactSelectCreatableProps } from "react-select/creatable";
+import BaseReactSelectAsyncCreatable, { AsyncCreatableProps as ReactSelectAsyncCreatableProps } from "react-select/async-creatable";
+import BaseReactDatePicker, { registerLocale } from "react-datepicker";
+import tr from "date-fns/locale/tr";
+import "moment/locale/tr";
+import moment from "moment";
+registerLocale("tr", tr);
 
-type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   endIcon?: boolean;
   label?: any;
   id?: string;
@@ -32,26 +37,45 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   [x: string]: any;
 };
 
-const Input = ({ children }: InputProps) => {
+interface InputProps {
+  as?: any;
+  id?: string;
+  name: string;
+  label?: any;
+  type?: HTMLInputTypeAttribute;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  size?: string;
+  rows?: number;
+  required?: boolean;
+  disabled?: boolean;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
+const Input = ({ children }: Props) => {
   return children;
 };
 
 const Control = ({
   as,
-  classNameContainer,
-  label,
-  classNameLabel,
   id,
   name,
-  type,
+  label,
+  type = "text",
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder,
-  endIcon,
+  size,
+  rows,
+  disabled,
+  required,
   register,
   errors,
-  rows,
-  className,
-  disabled,
-  size,
   ...props
 }: InputProps) => {
   return (
@@ -79,22 +103,38 @@ const Control = ({
   );
 };
 
+interface SelectProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  size?: string;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const Select = ({
-  classNameContainer,
-  label,
-  classNameLabel,
   id,
   name,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder,
-  endIcon,
+  disabled,
+  required,
+  size,
   register,
   errors,
-  className,
-  disabled,
-  size,
   children,
   ...props
-}: InputProps) => {
+}: SelectProps) => {
   return (
     <Form.Group className={classNameContainer}>
       {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
@@ -119,24 +159,42 @@ const Select = ({
   );
 };
 
+interface CheckProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  type?: "checkbox" | "radio";
+  size?: string;
+  title?: string;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const Check = ({
-  classNameContainer,
-  label,
-  classNameLabel,
   id,
   name,
-  type,
-  placeholder,
-  endIcon,
-  register,
-  errors,
+  label,
   className,
+  classNameLabel,
+  classNameContainer,
+  placeholder,
   disabled,
+  required,
+  type,
   size,
   title,
+  register,
+  errors,
   children,
   ...props
-}: InputProps) => {
+}: CheckProps) => {
   return (
     <Form.Group className={classNameContainer}>
       {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
@@ -163,27 +221,38 @@ const Check = ({
   );
 };
 
+interface RangeProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  disabled?: boolean;
+  required?: boolean;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const Range = ({
   // min, max, step,
-  classNameContainer,
-  label,
-  classNameLabel,
   id,
   name,
-  endIcon,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  disabled,
+  required,
   register,
   errors,
-  className,
-  disabled,
-  children,
   ...props
-}: InputProps) => {
+}: RangeProps) => {
   return (
     <Form.Group className={classNameContainer}>
       {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
-      <Form.Range id={id} name={name} className={className} disabled={disabled} {...(register && register(name))} {...props}>
-        {children}
-      </Form.Range>
+      <Form.Range id={id} name={name} className={className} disabled={disabled} {...(register && register(name))} {...props} />
 
       {errors && (
         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
@@ -192,30 +261,40 @@ const Range = ({
   );
 };
 
+interface RSProps extends ReactSelectProps {
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: any;
+  onChangeValue?: Function;
+  control?: any;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const ReactSelect = ({
-  classNameContainer,
-  label,
-  classNameLabel,
-  id,
   name,
-  type,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder = "Seçiniz...",
-  endIcon,
+  required,
+  control,
   register,
   errors,
-  rows,
-  className,
-  disabled,
-  size,
-  children,
   options,
-  isCreatable = false,
-  isAsync = false,
-  isLoading = false,
+  onChangeValue,
   isMulti = false,
   isClearable = true,
+  isLoading = false,
   ...props
-}: InputProps) => {
+}: RSProps) => {
   return (
     <Form.Group className={classNameContainer}>
       {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
@@ -236,8 +315,8 @@ const ReactSelect = ({
             value={value}
             onChange={(e) => {
               onChange(e);
-              if (props.onChange) {
-                props.onChange(e);
+              if (onChangeValue) {
+                onChangeValue(e);
               }
             }}
             {...props}
@@ -252,36 +331,50 @@ const ReactSelect = ({
   );
 };
 
+interface RSAProps extends ReactSelectAsyncProps<any, any, any> {
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: any;
+  onChangeValue?: Function;
+  control?: any;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const ReactSelectAsync = ({
-  classNameContainer,
-  label,
-  classNameLabel,
-  id,
   name,
-  type,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder = "Seçiniz...",
-  endIcon,
+  required,
+  control,
   register,
   errors,
-  rows,
-  className,
-  disabled,
-  size,
-  children,
   options,
-  isCreatable = false,
-  isAsync = false,
-  isLoading = false,
+  onChangeValue,
   isMulti = false,
   isClearable = true,
+  isLoading = false,
   ...props
-}: InputProps) => {
+}: RSAProps) => {
   return (
-    <Form.Group className={classNameContainer}>
-      {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
+    <div className={classNameContainer}>
+      {label && (
+        <label className={classNameLabel}>
+          {label} {required && <span className="text-sm text-red-600">*</span>}
+        </label>
+      )}
 
       <Controller
-        control={props.control}
+        control={control}
         name={name}
         render={({ field: { onChange, value, ref } }) => (
           <BaseReactSelectAsync
@@ -296,8 +389,8 @@ const ReactSelectAsync = ({
             value={value}
             onChange={(e) => {
               onChange(e);
-              if (props.onChange) {
-                props.onChange(e);
+              if (onChangeValue) {
+                onChangeValue(e);
               }
             }}
             // escapeClearsValue
@@ -310,43 +403,55 @@ const ReactSelectAsync = ({
         )}
       />
 
-      {errors && (
-        <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
-      )}
-    </Form.Group>
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+    </div>
   );
 };
 
+interface RSCProps extends ReactSelectCreatableProps<any, any, any> {
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: any;
+  onChangeValue?: Function;
+  control?: any;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const ReactSelectCreatable = ({
-  classNameContainer,
-  label,
-  classNameLabel,
-  id,
   name,
-  type,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder = "Seçiniz...",
-  endIcon,
+  required,
+  control,
   register,
   errors,
-  rows,
-  className,
-  disabled,
-  size,
-  children,
   options,
-  isCreatable = false,
-  isAsync = false,
-  isLoading = false,
+  onChangeValue,
   isMulti = false,
   isClearable = true,
+  isLoading = false,
   ...props
-}: InputProps) => {
+}: RSCProps) => {
   return (
-    <Form.Group className={classNameContainer}>
-      {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
+    <div className={classNameContainer}>
+      {label && (
+        <label className={classNameLabel}>
+          {label} {required && <span className="text-sm text-red-600">*</span>}
+        </label>
+      )}
 
       <Controller
-        control={props.control}
+        control={control}
         name={name}
         render={({ field: { onChange, value, ref } }) => (
           <BaseReactSelectCreatable
@@ -361,54 +466,68 @@ const ReactSelectCreatable = ({
             value={value}
             onChange={(e) => {
               onChange(e);
-              if (props.onChange) {
-                props.onChange(e);
+              if (onChangeValue) {
+                onChangeValue(e);
               }
             }}
             formatCreateLabel={(e: any) => e + " oluştur"}
             onCreateOption={props.onCreateOption}
+            loadingMessage={() => "Yükleniyor..."}
+            isLoading={isLoading}
             {...props}
           />
         )}
       />
 
-      {errors && (
-        <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
-      )}
-    </Form.Group>
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+    </div>
   );
 };
 
+interface RSACProps extends ReactSelectAsyncCreatableProps<any, any, any> {
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: any;
+  onChangeValue?: Function;
+  control?: any;
+  register?: any;
+  errors?: any;
+  [x: string]: any;
+}
+
 const ReactSelectAsyncCreatable = ({
-  classNameContainer,
-  label,
-  classNameLabel,
-  id,
   name,
-  type,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
   placeholder = "Seçiniz...",
-  endIcon,
+  required,
+  control,
   register,
   errors,
-  rows,
-  className,
-  disabled,
-  size,
-  children,
   options,
-  isCreatable = false,
-  isAsync = false,
-  isLoading = false,
+  onChangeValue,
   isMulti = false,
   isClearable = true,
+  isLoading = false,
   ...props
-}: InputProps) => {
+}: RSACProps) => {
   return (
-    <Form.Group className={classNameContainer}>
-      {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
+    <div className={classNameContainer}>
+      {label && (
+        <label className={classNameLabel}>
+          {label} {required && <span className="text-sm text-red-600">*</span>}
+        </label>
+      )}
 
       <Controller
-        control={props.control}
+        control={control}
         name={name}
         render={({ field: { onChange, value, ref } }) => (
           <BaseReactSelectAsyncCreatable
@@ -423,8 +542,8 @@ const ReactSelectAsyncCreatable = ({
             value={value}
             onChange={(e) => {
               onChange(e);
-              if (props.onChange) {
-                props.onChange(e);
+              if (onChangeValue) {
+                onChangeValue(e);
               }
             }}
             // escapeClearsValue
@@ -435,6 +554,81 @@ const ReactSelectAsyncCreatable = ({
             formatCreateLabel={(e: any) => e + " oluştur"}
             onCreateOption={props.onCreateOption}
             {...props}
+          />
+        )}
+      />
+
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+    </div>
+  );
+};
+
+interface DatePickerProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  control?: any;
+  register?: any;
+  errors?: any;
+  min?: any;
+  max?: any;
+  [x: string]: any;
+}
+
+const ReactDatePicker = ({
+  id,
+  name,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  placeholder = "Seçiniz...",
+  disabled = false,
+  required,
+  control,
+  register,
+  errors,
+  min,
+  max,
+  ...props
+}: DatePickerProps) => {
+  return (
+    <Form.Group className={classNameContainer}>
+      {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
+
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value, ref } }) => (
+          <BaseReactDatePicker
+            disabled={disabled}
+            autoComplete="off"
+            placeholderText={placeholder}
+            wrapperClassName="d-block"
+            className={`form-control ${errors?.name ? "is-invalid" : ""}`}
+            dateFormat="dd.MM.yyyy"
+            name={name}
+            showYearDropdown
+            showMonthDropdown
+            popperPlacement="bottom"
+            // disabledKeyboardNavigation
+            // value={value}
+            selected={value ? new Date(value) : null}
+            onChange={(e: any) => {
+              onChange(e ? moment(e).format("YYYY-MM-DD") : null);
+              if (props.onChangeValue) props.onChangeValue(e ? moment(e).format("YYYY-MM-DD") : null);
+            }}
+            isClearable
+            locale={tr}
+            minDate={min ? new Date(min) : null}
+            maxDate={max ? new Date(max) : null}
+            // dateFormat="DD-MM-yyyy"
           />
         )}
       />
@@ -454,5 +648,6 @@ Input.ReactSelect = ReactSelect;
 Input.ReactSelectAsync = ReactSelectAsync;
 Input.ReactSelectCreatable = ReactSelectCreatable;
 Input.ReactSelectAsyncCreatable = ReactSelectAsyncCreatable;
+Input.ReactDatePicker = ReactDatePicker;
 
 export default Input;

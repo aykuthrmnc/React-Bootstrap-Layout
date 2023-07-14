@@ -58,7 +58,9 @@ const Home = () => {
         errors={errors}
         onCreateOption={(e: any) => console.log(e)}
       />
-      <FormInput label="Tarih" type="date" name="date" containerClass={"mb-3"} register={register} errors={errors} control={control} />
+      <Input.ReactDatePicker label="Tarih" type="date" name="date" classNameContainer="mb-3" control={control} register={register} errors={errors} />
+
+      {/* <FormInput label="Tarih" type="date" name="date" containerClass={"mb-3"} register={register} errors={errors} control={control} /> */}
       <Button type="submit">Kaydet</Button>
     </form>
   );
