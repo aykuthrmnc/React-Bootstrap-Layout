@@ -10,6 +10,7 @@ import BaseReactDatePicker, { registerLocale } from "react-datepicker";
 import tr from "date-fns/locale/tr";
 import "moment/locale/tr";
 import moment from "moment";
+import classNames from "classnames";
 registerLocale("tr", tr);
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -301,7 +302,9 @@ const ReactSelect = ({
         name={name}
         render={({ field: { onChange, value } }) => (
           <BaseReactSelect
-            className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
+            className={classNames(className, "react-select react-select-container", {
+              "is-invalid": errors?.[name],
+            })}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -374,7 +377,9 @@ const ReactSelectAsync = ({
         name={name}
         render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsync
-            className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
+            className={classNames(className, "react-select react-select-container", {
+              "is-invalid": errors?.[name],
+            })}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -450,7 +455,9 @@ const ReactSelectCreatable = ({
         name={name}
         render={({ field: { onChange, value } }) => (
           <BaseReactSelectCreatable
-            className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
+            className={classNames(className, "react-select react-select-container", {
+              "is-invalid": errors?.[name],
+            })}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -525,7 +532,9 @@ const ReactSelectAsyncCreatable = ({
         name={name}
         render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsyncCreatable
-            className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
+            className={classNames(className, "react-select react-select-container", {
+              "is-invalid": errors?.[name],
+            })}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -605,7 +614,9 @@ const ReactDatePicker = ({
             autoComplete="off"
             placeholderText={placeholder}
             wrapperClassName="d-block"
-            className={`form-control ${errors?.name ? "is-invalid" : ""}`}
+            className={classNames("form-control", {
+              "is-invalid": errors?.[name],
+            })}
             dateFormat="dd.MM.yyyy"
             name={name}
             showYearDropdown
