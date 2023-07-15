@@ -53,7 +53,6 @@ interface InputProps {
   disabled?: boolean;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const Input = ({ children }: Props) => {
@@ -116,7 +115,7 @@ interface SelectProps {
   size?: string;
   register?: any;
   errors?: any;
-  [x: string]: any;
+  children: React.ReactNode;
 }
 
 const Select = ({
@@ -174,7 +173,7 @@ interface CheckProps {
   title?: string;
   register?: any;
   errors?: any;
-  [x: string]: any;
+  children: React.ReactNode;
 }
 
 const Check = ({
@@ -232,7 +231,6 @@ interface RangeProps {
   required?: boolean;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const Range = ({
@@ -274,7 +272,6 @@ interface RSProps extends ReactSelectProps {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelect = ({
@@ -300,9 +297,9 @@ const ReactSelect = ({
       {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
 
       <Controller
-        control={props.control}
+        control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelect
             className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
             classNamePrefix="react-select"
@@ -344,7 +341,6 @@ interface RSAProps extends ReactSelectAsyncProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectAsync = ({
@@ -376,7 +372,7 @@ const ReactSelectAsync = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsync
             className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
             classNamePrefix="react-select"
@@ -421,7 +417,6 @@ interface RSCProps extends ReactSelectCreatableProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectCreatable = ({
@@ -453,7 +448,7 @@ const ReactSelectCreatable = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectCreatable
             className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
             classNamePrefix="react-select"
@@ -497,7 +492,6 @@ interface RSACProps extends ReactSelectAsyncCreatableProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectAsyncCreatable = ({
@@ -529,7 +523,7 @@ const ReactSelectAsyncCreatable = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsyncCreatable
             className={`react-select react-select-container ${errors?.[name] ? "is-invalid" : ""} ${className}`}
             classNamePrefix="react-select"
@@ -605,7 +599,7 @@ const ReactDatePicker = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactDatePicker
             disabled={disabled}
             autoComplete="off"
