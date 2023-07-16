@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import FormInput from "~/components/FormInput";
 import Input from "~/components/Input";
 import { LoginSchema } from "~/validation";
 
@@ -26,7 +25,7 @@ const Home = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input.Control label="E-posta" type="text" name="email" classNameContainer="mb-3" register={register} errors={errors} />
-      <Input.Control label="Şifre" type="password" name="password" classNameContainer="mb-3" register={register} errors={errors} />
+      <Input.Control label="Şifre" type="password" name="password" classNameContainer="mb-3" register={register} errors={errors} showPasswordButton />
       <Input.Select label="Cinsiyet" name="select" classNameContainer="mb-3" register={register} errors={errors}>
         <option value="1">Erkek</option>
         <option value="2">Kadın</option>
@@ -59,8 +58,7 @@ const Home = () => {
         onCreateOption={(e: any) => console.log(e)}
       />
       <Input.ReactDatePicker label="Tarih" name="date" classNameContainer="mb-3" control={control} register={register} errors={errors} />
-
-      {/* <FormInput label="Tarih" type="date" name="date" containerClass={"mb-3"} register={register} errors={errors} control={control} /> */}
+      <Input.Control label="Arama" type="search" name="search" classNameContainer="mb-3" register={register} errors={errors} />
       <Button type="submit">Kaydet</Button>
     </form>
   );

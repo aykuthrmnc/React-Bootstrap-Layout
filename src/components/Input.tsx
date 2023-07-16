@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
+import { HTMLInputTypeAttribute, InputHTMLAttributes, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Controller, Control as RHFControl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -11,6 +11,7 @@ import tr from "date-fns/locale/tr";
 import "moment/locale/tr";
 import moment from "moment";
 import classNames from "classnames";
+import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
 registerLocale("tr", tr);
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -38,6 +39,10 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   [x: string]: any;
 };
 
+const Input = ({ children }: Props) => {
+  return children;
+};
+
 interface InputProps {
   as?: any;
   id?: string;
@@ -46,19 +51,18 @@ interface InputProps {
   type?: HTMLInputTypeAttribute;
   className?: string;
   classNameLabel?: string;
+  classNameSearch?: string;
   classNameContainer?: string;
   placeholder?: string;
   size?: string;
   rows?: number;
   required?: boolean;
   disabled?: boolean;
+  searchIcon?: any;
+  showPasswordButton?: boolean;
   register?: any;
   errors?: any;
 }
-
-const Input = ({ children }: Props) => {
-  return children;
-};
 
 const Control = ({
   as,
@@ -68,33 +72,59 @@ const Control = ({
   type = "text",
   className,
   classNameLabel,
+  classNameSearch,
   classNameContainer,
   placeholder,
   size,
   rows,
   disabled,
   required,
+  searchIcon,
+  showPasswordButton = false,
   register,
   errors,
   ...props
 }: InputProps) => {
+  const [inputType, setInputType] = useState(type);
+
   return (
     <Form.Group className={classNameContainer}>
-      {label && <Form.Label className={classNameLabel}>{label}</Form.Label>}
-      <Form.Control
-        as={as}
-        id={id}
-        name={name}
-        type={type}
-        className={className}
-        placeholder={placeholder}
-        isInvalid={errors?.[name] ? true : false}
-        disabled={disabled}
-        size={size}
-        rows={rows}
-        {...(register && register(name))}
-        {...props}
-      />
+      {label && (
+        <Form.Label className={classNameLabel} htmlFor={id}>
+          {label}
+        </Form.Label>
+      )}
+      <div className="position-relative">
+        {type === "search" && (
+          <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-3")}>
+            {searchIcon ?? <FaSearch />}
+          </div>
+        )}
+        <Form.Control
+          as={as}
+          id={id}
+          name={name}
+          type={inputType}
+          className={classNames(className, { "ps-5": type === "search", "pe-5": showPasswordButton })}
+          placeholder={placeholder}
+          isInvalid={errors?.[name] ? true : false}
+          disabled={disabled}
+          size={size}
+          rows={rows}
+          {...(register && register(name))}
+          {...props}
+        />
+        {type === "password" && showPasswordButton && (
+          <button
+            type="button"
+            title={inputType === "password" ? "Göster" : "Gizle"}
+            onClick={() => setInputType(inputType === "password" ? "text" : "password")}
+            className={"border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-3 text-reset"}
+          >
+            {inputType === "password" ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        )}
+      </div>
 
       {errors && (
         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
@@ -174,7 +204,6 @@ interface CheckProps {
   title?: string;
   register?: any;
   errors?: any;
-  children: React.ReactNode;
 }
 
 const Check = ({
@@ -192,7 +221,6 @@ const Check = ({
   title,
   register,
   errors,
-  children,
   ...props
 }: CheckProps) => {
   return (
@@ -210,9 +238,7 @@ const Check = ({
         label={title}
         {...(register && register(name))}
         {...props}
-      >
-        {children}
-      </Form.Check>
+      />
 
       {errors && (
         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
@@ -368,7 +394,7 @@ const ReactSelectAsync = ({
     <div className={classNameContainer}>
       {label && (
         <label className={classNameLabel}>
-          {label} {required && <span className="text-sm text-red-600">*</span>}
+          {label} {required && <span className="small text-danger">*</span>}
         </label>
       )}
 
@@ -404,7 +430,7 @@ const ReactSelectAsync = ({
         )}
       />
 
-      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="small text-danger">{message}</div>} />}
     </div>
   );
 };
@@ -446,7 +472,7 @@ const ReactSelectCreatable = ({
     <div className={classNameContainer}>
       {label && (
         <label className={classNameLabel}>
-          {label} {required && <span className="text-sm text-red-600">*</span>}
+          {label} {required && <span className="small text-danger">*</span>}
         </label>
       )}
 
@@ -481,7 +507,7 @@ const ReactSelectCreatable = ({
         )}
       />
 
-      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="small text-danger">{message}</div>} />}
     </div>
   );
 };
@@ -523,7 +549,7 @@ const ReactSelectAsyncCreatable = ({
     <div className={classNameContainer}>
       {label && (
         <label className={classNameLabel}>
-          {label} {required && <span className="text-sm text-red-600">*</span>}
+          {label} {required && <span className="text-danger">*</span>}
         </label>
       )}
 
@@ -561,7 +587,7 @@ const ReactSelectAsyncCreatable = ({
         )}
       />
 
-      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="text-sm text-red-600">{message}</div>} />}
+      {errors && <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="small text-danger">{message}</div>} />}
     </div>
   );
 };
@@ -617,6 +643,9 @@ const ReactDatePicker = ({
             className={classNames("form-control", {
               "is-invalid": errors?.[name],
             })}
+            // timeFormat="HH:mm"
+            // timeIntervals={15}
+            // timeCaption="time"
             dateFormat="dd.MM.yyyy"
             name={name}
             showYearDropdown
@@ -633,7 +662,6 @@ const ReactDatePicker = ({
             locale={tr}
             minDate={min ? new Date(min) : null}
             maxDate={max ? new Date(max) : null}
-            // dateFormat="DD-MM-yyyy"
           />
         )}
       />
