@@ -1,6 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Dropdown, Nav } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MenuItemTypes } from "~/constants/menu";
 
 const findAllParent = (menuItems: MenuItemTypes[], menuItem: MenuItemTypes): string[] => {
@@ -47,17 +47,6 @@ const MenuItemWithChildren = ({
   isNavbar?: boolean;
   setActiveMenuItems?: any;
 }) => {
-  const [open, setOpen] = useState(activeMenuItems.includes(item.key));
-
-  const toggle = () => {
-    setOpen(!open);
-    if (toggleMenu) toggleMenu(item, !open);
-  };
-
-  useEffect(() => {
-    setOpen(activeMenuItems!.includes(item.key));
-  }, [activeMenuItems, item]);
-
   return (
     <Dropdown drop={isNavbar ? "down" : "end"} className="d-flex flex-column flex-lg-row">
       <Dropdown.Toggle as="button" className={`dropdown-item flex-fill d-flex align-items-center nav-link gap-2`}>
@@ -86,10 +75,7 @@ const MenuItemWithChildren = ({
 };
 
 const Topbar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
-  const location = useLocation();
   const [activeMenuItems, setActiveMenuItems] = useState<Array<string>>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
 
   //   const theme = useSelector((state: RootState) => state.auth.theme);
   //   const { companyName } = useSelector((state: RootState) => state.auth.user)!;

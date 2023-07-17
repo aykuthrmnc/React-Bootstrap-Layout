@@ -22,7 +22,7 @@ const Login = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         try {
-          userLoginHandle({ id: 1, name: "Aykut", token: "Giriş yapıldı." });
+          userLoginHandle({ id: 1, name: "Aykut", token: "Giris yapıldı." });
         } finally {
           resolve(true);
         }

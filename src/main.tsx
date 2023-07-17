@@ -3,6 +3,7 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import store from "~/store";
 import "~/assets/scss/index.scss";
+// import "~/utils/axiosDefault"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

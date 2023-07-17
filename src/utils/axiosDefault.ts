@@ -1,18 +1,17 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 import store from "~/store";
 import { userLogoutHandle } from "~/utils";
 
-const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-});
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
-instance.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     if (!config.headers.Authorization) {
       const token = store.getState().auth.user?.token;
 
       if (token) {
-        config.headers.Authorization = `Bearer ${encodeURIComponent(token)}`;
+        config.headers.Authorization = `Bearer ${token}`;
       }
     }
     return config;
@@ -20,7 +19,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-instance.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     let message;
@@ -47,5 +46,3 @@ instance.interceptors.response.use(
     return Promise.reject(message);
   }
 );
-
-export default instance;

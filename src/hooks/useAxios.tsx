@@ -1,31 +1,41 @@
 import axios from "~/utils/axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { AxiosRequestConfig } from "axios";
 
-export interface AxiosObject {
-  url?: any;
-  method: string;
-  parameters?: any;
-}
-
-const useAxios = ({ url, method = "get", parameters = null }: AxiosObject) => {
+const useAxios = (params: AxiosRequestConfig) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const makeRequest = () => {
     setLoading(true);
-    axios(url, { method, data: parameters })
+
+    axios(params)
       .then((res) => {
-        setLoading(false);
         setData(res.data);
       })
       .catch((err) => {
-        setLoading(false);
         setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [url]);
+  };
 
-  return { data, loading, error };
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios({ method, url, params })
+  //     .then((res) => {
+  //       setLoading(false);
+  //       setData(res.data);
+  //     })
+  //     .catch((err) => {
+  //       setLoading(false);
+  //       setError(err);
+  //     });
+  // }, [url]);
+
+  return { data, loading, error, makeRequest };
 };
 
 export default useAxios;
