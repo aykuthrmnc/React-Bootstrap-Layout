@@ -74,7 +74,7 @@ const MenuItemWithChildren = ({
   );
 };
 
-const Topbar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
+const MenuDropdown = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
   const [activeMenuItems, setActiveMenuItems] = useState<Array<string>>([]);
 
   //   const theme = useSelector((state: RootState) => state.auth.theme);
@@ -106,4 +106,4 @@ const Topbar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
   ));
 };
 
-export default Topbar;
+export default MenuDropdown;
