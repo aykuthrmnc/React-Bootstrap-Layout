@@ -3,7 +3,7 @@ import moment from "moment/moment";
 import "moment/locale/tr";
 moment.locale();
 
-export const dateFormatter = (e?: string) => moment(e).format("LLL");
+export const dateFormatter = (e?: string, format = "LL") => moment(e).format(format);
 
 export const dateDifferenceFormatter = (end: string | moment.Moment, now?: string | moment.Moment) => {
   end = moment(end);

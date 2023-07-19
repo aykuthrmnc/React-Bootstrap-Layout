@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import Input from "~/components/Custom/Input";
+import Input from "~/components/Custom/Input/Input";
 import { LoginSchema } from "~/validation";
 
 const Home = () => {

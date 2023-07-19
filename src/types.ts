@@ -5,9 +5,12 @@ export interface TableObject {
   head: TableHeadObject[];
   body: TableBodyObject[] | any;
   searchable?: boolean;
+  asyncSearchable?: boolean;
   emptyMessage?: string;
   loading?: boolean;
+  pagination?: { currentPage: any; totalCount: any; totalPages: any; pageSize: any };
   children?: React.ReactNode;
+  [x: string]: any;
 }
 interface TableHeadObject {
   name: string;
