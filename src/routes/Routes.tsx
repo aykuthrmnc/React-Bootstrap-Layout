@@ -12,7 +12,7 @@ const Login = lazy(() => import("~/pages/auth/Login"));
 const Register = lazy(() => import("~/pages/auth/Register"));
 
 const Home = lazy(() => import("~/pages/Home"));
-const About = lazy(() => import("~/pages/About"));
+const Profile = lazy(() => import("~/pages/Profile"));
 
 const routes: Route[] = [
   {
@@ -26,8 +26,24 @@ const routes: Route[] = [
         element: <Home />,
       },
       {
-        path: "about",
-        element: <About />,
+        path: "personeller",
+        element: <Profile />,
+      },
+      {
+        path: "izinler",
+        element: <div></div>,
+      },
+      {
+        path: "takvim",
+        element: <div></div>,
+      },
+      {
+        path: "sirket",
+        element: <div></div>,
+      },
+      {
+        path: "raporlar",
+        element: <div></div>,
       },
     ],
   },

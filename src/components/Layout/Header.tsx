@@ -10,14 +10,14 @@ const Header = () => {
   const theme = useSelector((state: RootState) => state.auth.theme);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary mb-3">
-      <Container className="justify-content-between" id="header">
+    <Navbar expand="lg" className="bg-body-tertiary mb-3 p-0">
+      <Container fluid className="justify-content-between" id="header">
         <Navbar.Brand as={Link} to="/">
           AYKUTHRMNC
         </Navbar.Brand>
         <Navbar.Toggle className="border-0 shadow-none" />
 
-        <Navbar.Offcanvas placement="end">
+        <Navbar.Offcanvas>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>AYKUTHRMNC</Offcanvas.Title>
           </Offcanvas.Header>

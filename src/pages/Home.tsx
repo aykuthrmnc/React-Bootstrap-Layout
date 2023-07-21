@@ -25,6 +25,11 @@ const Home = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input.Control label="E-posta" type="text" name="email" classNameContainer="mb-3" register={register} errors={errors} />
+      <Input.FloatingControl label="E-posta" type="text" name="abc" classNameContainer="mb-3" register={register} errors={errors} />
+      <div className="form-floating mb-3">
+        <input type="text" className="form-control" placeholder="name@example.com" />
+        <label htmlFor="floatingInput">Email address</label>
+      </div>
       <Input.Control label="Şifre" type="password" name="password" classNameContainer="mb-3" register={register} errors={errors} showPasswordButton />
       <Input.Select label="Cinsiyet" name="select" classNameContainer="mb-3" register={register} errors={errors}>
         <option value="1">Erkek</option>

@@ -7,11 +7,11 @@ const MainLayout = () => {
   const [change, setChange] = useState(false);
 
   return (
-    <div className="d-flex min-vh-100">
+    <div className="d-flex flex-column flex-lg-row">
       <Sidebar change={change} />
-      {/* <Header /> */}
       {/* <Header2 /> */}
-      <Container className="p-3">
+      {/* <Header /> */}
+      <Container fluid className="p-3">
         <button onClick={() => setChange(!change)}>Değiştir</button>
         <Outlet />
       </Container>

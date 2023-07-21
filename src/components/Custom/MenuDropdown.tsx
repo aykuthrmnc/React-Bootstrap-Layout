@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { Dropdown, Nav } from "react-bootstrap";
 import React, { useState } from "react";
 import { MenuItemTypes } from "~/constants/menu";
+import classNames from "classnames";
 
 const findAllParent = (menuItems: MenuItemTypes[], menuItem: MenuItemTypes): string[] => {
   let parents: string[] = [];
@@ -48,7 +49,7 @@ const MenuItemWithChildren = ({
   setActiveMenuItems?: any;
 }) => {
   return (
-    <Dropdown drop={isNavbar ? "down" : "end"} className="d-flex flex-column flex-lg-row">
+    <Dropdown drop={isNavbar ? "down" : "end"} className={classNames("d-flex flex-column flex-lg-row", { "py-2": isNavbar })}>
       <Dropdown.Toggle as="button" className={`dropdown-item flex-fill d-flex align-items-center nav-link gap-2`}>
         {item?.icon} {item?.label}
       </Dropdown.Toggle>

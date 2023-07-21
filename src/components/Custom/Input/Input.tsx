@@ -1,5 +1,5 @@
 import { HTMLInputTypeAttribute, InputHTMLAttributes, useState } from "react";
-import { Form } from "react-bootstrap";
+import { FloatingLabel, Form } from "react-bootstrap";
 import { Controller, Control as RHFControl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { Props as ReactSelectProps } from "react-select";
@@ -130,6 +130,72 @@ const Control = ({
         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
       )}
     </Form.Group>
+  );
+};
+
+interface FloatingInputProps {
+  as?: any;
+  id?: string;
+  name: string;
+  label: any;
+  type?: HTMLInputTypeAttribute;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  size?: string;
+  rows?: number;
+  required?: boolean;
+  disabled?: boolean;
+  register?: any;
+  errors?: any;
+}
+
+const FloatingControl = ({
+  as,
+  id,
+  name,
+  label,
+  type = "text",
+  className,
+  classNameLabel,
+  classNameContainer,
+  placeholder = " ",
+  size,
+  rows,
+  disabled,
+  required,
+  register,
+  errors,
+  ...props
+}: FloatingInputProps) => {
+  return (
+    <>
+      <FloatingLabel className={classNameContainer} label={label} controlId={id || name}>
+        <Form.Control
+          as={as}
+          id={id}
+          name={name}
+          type={type}
+          className={classNames(className)}
+          placeholder={placeholder}
+          isInvalid={errors?.[name] ? true : false}
+          disabled={disabled}
+          size={size}
+          rows={rows}
+          {...(register && register(name))}
+          {...props}
+        />
+        {/* {label && (
+          <Form.Label className={classNameLabel} htmlFor={id}>
+            {label}
+          </Form.Label>
+        )} */}
+      </FloatingLabel>
+      {errors && (
+        <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
+      )}
+    </>
   );
 };
 
@@ -674,6 +740,7 @@ const ReactDatePicker = ({
 };
 
 Input.Control = Control;
+Input.FloatingControl = FloatingControl;
 Input.Select = Select;
 Input.Check = Check;
 Input.Range = Range;

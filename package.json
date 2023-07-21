@@ -37,6 +37,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.6",
     "@types/crypto-js": "^4.1.1",
     "@types/react": "^18.2.14",
     "@types/react-datepicker": "^4.11.2",
