@@ -35,14 +35,19 @@ export const HESAPMEN_MENU: MenuItemTypes[] = [
     key: "anasayfa",
     label: "Anasayfa",
     isTitle: false,
-    icon: <BsHouseDoorFill />,
+    icon: <BsHouseDoorFill className="nav-icon icon-xs me-2" />,
     url: "/",
+  },
+  {
+    key: "cariler",
+    label: "Cariler",
+    isTitle: true,
   },
   {
     key: "cari",
     label: "Cari",
     isTitle: false,
-    icon: <FaUsers />,
+    icon: <FaUsers className="nav-icon icon-xs me-2" />,
     children: [
       {
         key: "cariYonetim",
@@ -165,6 +170,11 @@ export const HESAPMEN_MENU: MenuItemTypes[] = [
         parentKey: "cari",
       },
     ],
+  },
+  {
+    key: "stoklar",
+    label: "Stoklar",
+    isTitle: true,
   },
   {
     key: "stok",

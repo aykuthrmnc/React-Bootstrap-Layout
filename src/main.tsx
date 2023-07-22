@@ -2,7 +2,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
 import store from "~/store";
-import "~/assets/scss/index.scss";
+import "~/assets/scss/theme.scss";
+// import "~/assets/scss/index.scss";
 // import "~/utils/axiosDefault"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
