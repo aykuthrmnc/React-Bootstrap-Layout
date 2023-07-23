@@ -1,52 +1,52 @@
-import { Container, Dropdown, Nav, Navbar, Offcanvas } from "react-bootstrap";
-import { setThemeHandle, userLogoutHandle } from "~/utils";
-import { Link } from "react-router-dom";
+import { Dropdown, Nav, Navbar } from "react-bootstrap";
+import { FaCog } from "react-icons/fa";
+import { FaBars, FaMoon, FaPowerOff, FaSun, FaUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { RootState } from "~/store";
-import MenuDropdown from "../Custom/MenuDropdown";
-import { HESAPMEN_MENU } from "~/constants/menu";
+import { setThemeHandle, userLogoutHandle } from "~/utils";
 
-const Header = () => {
+const Header = ({ toggleMenu, setToggleMenu }: any) => {
   const theme = useSelector((state: RootState) => state.auth.theme);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary mb-3 p-0">
-      <Container fluid className="justify-content-between" id="header">
-        <Navbar.Brand as={Link} to="/">
-          AYKUTHRMNC
-        </Navbar.Brand>
-        <Navbar.Toggle className="border-0 shadow-none" />
-
-        <Navbar.Offcanvas>
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>AYKUTHRMNC</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <Nav className="flex-fill" id="topbar">
-              <MenuDropdown menuItems={HESAPMEN_MENU} />
-              <hr />
-              <Dropdown className="ms-lg-auto d-flex flex-column flex-lg-row" align="end">
-                <Dropdown.Toggle as="button" className={`dropdown-item flex-fill d-flex align-items-center nav-link gap-2`}>
-                  Profil
-                </Dropdown.Toggle>
-                <Dropdown.Menu renderOnMount>
-                  <Dropdown.Item onClick={() => setThemeHandle(theme === "dark" ? "light" : "dark")}>Tema Değiştir</Dropdown.Item>
-                  <Dropdown.Item>Ayarlar</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => userLogoutHandle()}>Çıkış Yap</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              {/* <NavDropdown title="Profil" className="ms-lg-auto d-flex align-items-center gap-2" align="end">
-                <NavDropdown.Item onClick={() => setThemeHandle(theme === "dark" ? "light" : "dark")}>Tema Değiştir</NavDropdown.Item>
-                <NavDropdown.Item>Ayarlar</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => userLogoutHandle()}>Çıkış Yap</NavDropdown.Item>
-              </NavDropdown> */}
-            </Nav>
-          </Offcanvas.Body>
-        </Navbar.Offcanvas>
-      </Container>
-    </Navbar>
+    <div className="header">
+      <Navbar expand="lg" className="navbar-classic">
+        <a onClick={() => setToggleMenu(!toggleMenu)}>
+          <FaBars className="nav-icon me-2 icon-xs" />
+        </a>
+        <Nav className="navbar-right-wrap ms-auto d-flex nav-top-wrap">
+          <Dropdown className="ms-2">
+            <Dropdown.Toggle as="div" className="rounded-circle" role="button" id="dropdownUser">
+              <div className="avatar avatar-md avatar-indicators avatar-online">
+                <img alt="avatar" src="/src/assets/images/avatar/avatar-1.jpg" className="rounded-circle" />
+              </div>
+            </Dropdown.Toggle>
+            <Dropdown.Menu align="end" aria-labelledby="dropdownUser">
+              <div className="px-4 pt-2">
+                <h5 className="mb-1">Aykut Harmancı</h5>
+                <a href="#" className="fs-6">
+                  Profile Git
+                </a>
+              </div>
+              <Dropdown.Divider className="mx-4" />
+              <Dropdown.Item>
+                {/* <i className="me-2 icon-xxs text-primary dropdown-item-icon" data-feather="user" /> */}
+                <FaUser className="me-2 icon-xxs" /> Profil
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setThemeHandle(theme === "dark" ? "light" : "dark")}>
+                {theme === "dark" ? <FaSun className="me-2 icon-xxs" /> : <FaMoon className="me-2 icon-xxs" />} Tema Değiştir
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <FaCog className="me-2 icon-xxs" /> Ayarlar
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => userLogoutHandle()}>
+                <FaPowerOff className="me-2 icon-xxs" /> Çıkış Yap
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav>
+      </Navbar>
+    </div>
   );
 };
 export default Header;

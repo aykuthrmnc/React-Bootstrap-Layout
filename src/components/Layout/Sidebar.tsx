@@ -95,33 +95,31 @@ const Sidebar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
   };
   return (
     <Navbar className="navbar-vertical" expand={false}>
-      <div className="nav-scroller">
-        {/* Brand logo */}
-        <Navbar.Brand as={Link} to="/">
-          AYKUTHRMNC
-        </Navbar.Brand>
-        {/* Navbar nav */}
-        <Nav id="sideNavbar">
-          {menuItems?.map((item, key) => (
-            <React.Fragment key={key}>
-              {item.children ? (
-                <MenuItemWithChildren
-                  item={item}
-                  toggleMenu={toggleMenu}
-                  activeMenuItems={activeMenuItems}
-                  // subMenuClassNames="nav-second-level"
-                  // linkClassName="side-nav-link"
-                />
-              ) : (
-                <MenuItem
-                  item={item}
-                  // linkClassName="side-nav-link" className={activeMenuItems!.includes(item.key) ? "menuitem-active" : ""}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </Nav>
-      </div>
+      {/* Brand logo */}
+      <Navbar.Brand as={Link} to="/">
+        AYKUTHRMNC
+      </Navbar.Brand>
+      {/* Navbar nav */}
+      <Nav id="sideNavbar">
+        {menuItems?.map((item, key) => (
+          <React.Fragment key={key}>
+            {item.children ? (
+              <MenuItemWithChildren
+                item={item}
+                toggleMenu={toggleMenu}
+                activeMenuItems={activeMenuItems}
+                // subMenuClassNames="nav-second-level"
+                // linkClassName="side-nav-link"
+              />
+            ) : (
+              <MenuItem
+                item={item}
+                // linkClassName="side-nav-link" className={activeMenuItems!.includes(item.key) ? "menuitem-active" : ""}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </Nav>
     </Navbar>
   );
 };

@@ -1,7 +1,6 @@
 // Navbar Vertcial
 
 .navbar-vertical {
-
   margin-left: -17rem;
   display: block;
   position: fixed;
@@ -16,30 +15,25 @@
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
   transition: margin 0.25s ease-out;
+  height: 100% !important;
+  overflow-y: auto;
 
-  .slimScrollDiv {
-    height: 100% !important;
-    overflow-y: auto;
-  }
-  .nav-scroller {
-    height: 100% !important;
-    overflow-y: auto;
-  }
   .navbar-brand {
     padding: 1rem 1.5rem 1.5rem;
     margin-right: 0px;
     display: block;
+    color: #f4f6f8;
     img {
       height: 1.875rem;
     }
   }
   .navbar-heading {
-      color: $gray-700;
-      padding: 1rem 1.5rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08rem;
-      font-weight: 700;
+    color: $gray-700;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    font-weight: 700;
   }
   .navbar-nav {
     .nav-item {
@@ -53,32 +47,23 @@
         -webkit-transition: all 0.5s;
         white-space: nowrap;
         transition: all 0.5s;
-        &:hover {
-          color: $gray-200;
-        }
-
-        &:hover .nav-icon {
-          color: $gray-200;
-          opacity: 1;
-        }
-
+        &:hover,
         &.active {
           color: $gray-200;
-
         }
 
+        &:hover .nav-icon,
         &.active .nav-icon {
           color: $gray-200;
           opacity: 1;
         }
       }
-      .nav-link[data-bs-toggle="collapse"]{
+      .nav-link[data-bs-toggle="collapse"] {
         position: relative;
         &:after {
           display: block;
           content: "";
           background: url(../fonts/feather-icons/icons/chevron-down.svg);
-          font-family: Feather;
           margin-left: auto;
           transition: 0.5s ease;
           position: absolute;
@@ -89,21 +74,17 @@
           filter: brightness(0) invert(1);
           transform: scale(0.7);
         }
-
       }
-
-
     }
     .nav-icon {
       opacity: 0.6;
-      font-size: .875rem;
+      font-size: 0.875rem;
       -webkit-transition: all 0.5s;
       transition: all 0.5s;
     }
-    .sub-nav-icon{
-      font-size: .35rem;
-      margin-right: .5rem;
-
+    .sub-nav-icon {
+      font-size: 0.35rem;
+      margin-right: 0.5rem;
     }
     .nav {
       .nav-item {
@@ -149,13 +130,4 @@
       }
     }
   }
-}
-
-
-.collapse.in {
-    display: block;
-
-
-
-
 }
