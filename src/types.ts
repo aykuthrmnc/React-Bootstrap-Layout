@@ -46,10 +46,3 @@ export interface Auth {
   user?: any;
   theme: Theme;
 }
-
-//! WINDOW
-declare global {
-  interface Window {
-    myTimeout: any;
-  }
-}

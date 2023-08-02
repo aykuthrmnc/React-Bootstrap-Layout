@@ -81,8 +81,8 @@ export const decryptValue = (value: any) => {
 // }
 // let timeout: any;
 export const debounce = (func: any, delay = 500) => {
-  clearTimeout(window.myTimeout);
-  window.myTimeout = setTimeout(() => {
+  clearTimeout((window as any).myTimeout);
+  (window as any).myTimeout = setTimeout(() => {
     func();
   }, delay);
 };
