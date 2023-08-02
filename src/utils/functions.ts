@@ -70,3 +70,19 @@ export const decryptValue = (value: any) => {
     return;
   }
 };
+
+// DEBOUNCE
+// USAGE:
+// debounce(() => console.log(e.target.value));
+declare global {
+  interface Window {
+    myTimeout: any;
+  }
+}
+// let timeout: any;
+export const debounce = (func: any, delay = 500) => {
+  clearTimeout(window.myTimeout);
+  window.myTimeout = setTimeout(() => {
+    func();
+  }, delay);
+};
