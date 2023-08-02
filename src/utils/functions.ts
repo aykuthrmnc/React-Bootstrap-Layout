@@ -74,11 +74,11 @@ export const decryptValue = (value: any) => {
 // DEBOUNCE
 // USAGE:
 // debounce(() => console.log(e.target.value));
-declare global {
-  interface Window {
-    myTimeout: any;
-  }
-}
+// declare global {
+//   interface Window {
+//     myTimeout: any;
+//   }
+// }
 // let timeout: any;
 export const debounce = (func: any, delay = 500) => {
   clearTimeout(window.myTimeout);
