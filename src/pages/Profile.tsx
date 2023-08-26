@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
-import Table from "~/components/Custom/Table";
+import Table from "~/components/Custom/Table/OldTable";
 import { dateFormatter } from "~/utils/functions";
 
 const Profile = () => {

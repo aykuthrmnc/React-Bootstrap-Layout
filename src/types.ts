@@ -1,27 +1,35 @@
+import React from "react";
 import { NonIndexRouteObject } from "react-router-dom";
 
 //! TABLE
 export interface TableObject {
   head: TableHeadObject[];
-  body: TableBodyObject[] | any;
+  body: TableBodyObject[] | any[];
   searchable?: boolean;
   asyncSearchable?: boolean;
   emptyMessage?: string;
   loading?: boolean;
   pagination?: { currentPage: any; totalCount: any; totalPages: any; pageSize: any };
+  paginationCount?: boolean;
+  inlineEditable?: boolean;
+  creatable?: (e: any) => any;
+  editable?: (e: any) => any;
+  deletable?: (e: any) => any;
   children?: React.ReactNode;
-  [x: string]: any;
+  // [x: string]: any;
 }
 interface TableHeadObject {
   name: string;
   sortable?: boolean;
   width?: string;
+  key: string;
   center?: boolean;
+  type?: string;
+  options?: any[];
 }
-export interface TableBodyObject {
+interface TableBodyObject {
   value?: string;
-  type?: boolean;
-  displayValue?: string;
+  label?: string;
 }
 
 //! ROUTER

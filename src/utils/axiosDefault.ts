@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "~/store";
-import { userLogoutHandle } from "~/utils";
+import { userLogoutHandle } from "~/store/apiHandle";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;

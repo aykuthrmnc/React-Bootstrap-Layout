@@ -2,7 +2,7 @@ import { Button, Card, Form, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "~/validation";
-import { userLoginHandle } from "~/utils";
+import { userLoginHandle } from "~/store/apiHandle";
 
 const Login = () => {
   const {

@@ -2,7 +2,7 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "~/store";
 import { useEffect } from "react";
-import { getThemeHandle, getUserHandle } from "~/utils";
+import { getThemeHandle, getUserHandle } from "~/store/apiHandle";
 import Routes from "~/routes/Routes";
 
 const App = () => {

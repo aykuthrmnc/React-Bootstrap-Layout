@@ -3,7 +3,7 @@ import { FaCog } from "react-icons/fa";
 import { FaBars, FaMoon, FaPowerOff, FaSun, FaUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { RootState } from "~/store";
-import { setThemeHandle, userLogoutHandle } from "~/utils";
+import { setThemeHandle, userLogoutHandle } from "~/store/apiHandle";
 
 const Header = ({ toggleMenu, setToggleMenu }: any) => {
   const theme = useSelector((state: RootState) => state.auth.theme);

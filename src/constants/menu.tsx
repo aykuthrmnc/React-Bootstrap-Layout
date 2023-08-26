@@ -14,6 +14,7 @@ import {
   FaUtensilSpoon,
 } from "react-icons/fa";
 import { BsHouseDoorFill } from "react-icons/bs";
+import { FaTable } from "react-icons/fa6";
 
 export type MenuItemTypes = {
   key: string;
@@ -37,6 +38,13 @@ export const HESAPMEN_MENU: MenuItemTypes[] = [
     isTitle: false,
     icon: <BsHouseDoorFill className="nav-icon icon-xs me-2" />,
     url: "/",
+  },
+  {
+    key: "table",
+    label: "Tablo",
+    isTitle: false,
+    icon: <FaTable className="nav-icon icon-xs me-2" />,
+    url: "/table",
   },
   {
     key: "cariler",

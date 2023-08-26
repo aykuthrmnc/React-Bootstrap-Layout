@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import store from "~/store";
-import { userLogoutHandle } from "~/utils";
+import { userLogoutHandle } from "~/store/apiHandle";
 
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import TablePage from "~/pages/TablePage";
 import { Route } from "~/types";
 
 const AuthLayout = lazy(() => import("~/layouts/AuthLayout"));
@@ -24,6 +25,10 @@ const routes: Route[] = [
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "table",
+        element: <TablePage />,
       },
       {
         path: "personeller",

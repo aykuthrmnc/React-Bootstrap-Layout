@@ -31,6 +31,16 @@
 // User
 @import "user";
 
+// React-Datetime
+@import "react-datetime/css/react-datetime.css";
+// React-Toastify
+@import "react-toastify/dist/ReactToastify.css";
+// React-Phone-Number-Input
+@import "react-phone-number-input/style.css";
+// SweetAlert2
+@import "sweetalert2/src/sweetalert2.scss";
+
+
 .heading-permalink {
   color: transparent;
   margin-left: -2rem;

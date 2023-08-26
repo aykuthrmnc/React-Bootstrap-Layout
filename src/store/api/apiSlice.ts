@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "~/store";
-import { userLogoutHandle } from "~/utils";
+import { userLogoutHandle } from "~/store/apiHandle";
 
 // apiSlice.injectEndpoints şeklinde parçalı kısımlara ayrılabilir.
 export const apiSlice = createApi({
@@ -17,34 +17,12 @@ export const apiSlice = createApi({
     },
 
     validateStatus: (response: Response) => {
-      let message: any;
-      if (response && response.status === 404) {
-        message = response;
-        // window.location.href = '/not-found';
-      } else if (response && response.status === 403) {
-        // window.location.href = '/access-denied';
-        message = response;
-      } else {
-        switch (response.status) {
-          case 401:
-            message = "Yetki Yok";
-            userLogoutHandle();
-            break;
-          case 403:
-            message = "Access Forbidden";
-            break;
-          case 404:
-            message = "Sorry! the data you are looking for could not be found";
-            break;
-          case 505:
-            window.location.href = "/error-500";
-            break;
-          default: {
-            message = response;
-          }
-        }
+      switch (response.status) {
+        case 401:
+          userLogoutHandle();
+          break;
       }
-      return message!;
+      return response?.ok;
     },
   }),
   tagTypes: ["EXAMPLE"],

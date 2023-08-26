@@ -5,7 +5,7 @@ import { FaBuilding, FaCalendar, FaCalendarCheck, FaHome, FaPager, FaUser } from
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RootState } from "~/store";
-import { setThemeHandle, userLogoutHandle } from "~/utils";
+import { setThemeHandle, userLogoutHandle } from "~/store/apiHandle";
 
 // SIDEBAR DENEMESI
 const Sidebar2 = () => {

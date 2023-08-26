@@ -62,7 +62,7 @@ const Home = () => {
         errors={errors}
         onCreateOption={(e: any) => console.log(e)}
       />
-      <Input.ReactDatePicker label="Tarih" name="date" classNameContainer="mb-3" control={control} register={register} errors={errors} />
+      {/* <Input.ReactDatePicker label="Tarih" name="date" classNameContainer="mb-3" control={control} register={register} errors={errors} /> */}
       <Input.Control label="Arama" type="search" name="search" classNameContainer="mb-3" register={register} errors={errors} />
       <Button type="submit">Kaydet</Button>
     </form>
